@@ -1,0 +1,103 @@
+<div class="row mt-3">
+  <div class="col">
+    <div class="fs-1 fw-bold text-primary">Confirm Order</div>
+  </div>
+</div>
+
+<form [formGroup]="form" (submit)="confirmOrder()">
+  <div class="row mb-2">
+    <div class="col">
+      <label for="username" class="form-label">Username</label>
+      <input
+        type="text"
+        id="username"
+        class="form-control"
+        formControlName="username"
+        placeholder="Registered username"
+      />
+    </div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        id="password"
+        class="form-control"
+        formControlName="password"
+        placeholder="Valid password"
+      />
+    </div>
+  </div>
+  @if (
+    this.form.controls["username"].invalid &&
+    this.form.controls["username"].touched
+  ) {
+    <div class="error-message text-danger ms-2">
+      @if (this.form.controls["username"].errors?.["required"]) {
+        <span>Username is required.</span>
+      }
+    </div>
+  }
+  @if (
+    this.form.controls["password"].invalid &&
+    this.form.controls["password"].touched
+  ) {
+    <div class="error-message text-danger ms-2">
+      @if (this.form.controls["password"].errors?.["required"]) {
+        <span>Password is required.</span>
+      }
+    </div>
+  }
+  <div class="row mb-5">
+    <div class="col">
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-danger" (click)="startOver()">
+          Start Over
+        </button>
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid">
+          Confirm
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div class="row mb-2">
+  <div class="col">
+    <h2>Your Order</h2>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Name</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (menu of selectedItems; track menu.id; let i = $index) {
+          <tr>
+            <td>{{ i + 1 }}</td>
+            <td>{{ menu.name }}</td>
+            <td>${{ menu.price }}</td>
+            <td>{{ menu.quantity }}</td>
+            <td>${{ getItemSubtotal(menu) }}</td>
+          </tr>
+        }
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="4"></td>
+          <td>${{ totalCost }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

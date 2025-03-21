@@ -1,0 +1,8 @@
+# TODO: Task 1.1
+
+#local
+mongoimport -hlocalhost --port=27017 -drestaurant -cmenus --jsonArray menus.json
+
+#railway
+#mongoimport --uri mongodb://mongo:FneqNrMKJJkcHsCSvEotlJfRtELPkSBu@turntable.proxy.rlwy.net:58034
+/restaurant?authSource=admin -drestaurant -cmenus --jsonArray menus.json
