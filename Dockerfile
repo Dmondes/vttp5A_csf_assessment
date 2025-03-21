@@ -31,8 +31,7 @@ COPY server/.mvn/ .mvn/
 COPY server/mvnw .
 COPY server/src ./src
 
-# Copy Angular build artifacts to static resources.  Corrected path!
-COPY --from=ngbuild /app/client/dist/client ./src/main/resources/static
+COPY --from=ngbuild /app/client/dist/client/browser ./src/main/resources/static
 
 # Build Spring Boot application
 RUN chmod a+x mvnw
@@ -45,8 +44,6 @@ WORKDIR /app
 
 # Copy the built jar file from the build stage
 COPY --from=javabuild /app/target/*.jar app.jar
-
-# Set environment variables
 
 # Expose the port
 EXPOSE ${PORT}
