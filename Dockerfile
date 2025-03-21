@@ -32,7 +32,7 @@ COPY server/mvnw .
 COPY server/src ./src
 
 # Copy Angular build artifacts to static resources.  Corrected path!
-COPY --from=ngbuild /app/client/dist/client-side ./src/main/resources/static
+COPY --from=ngbuild /app/client/dist/client ./src/main/resources/static
 
 # Build Spring Boot application
 RUN chmod a+x mvnw
